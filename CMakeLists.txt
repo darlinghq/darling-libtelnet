@@ -17,7 +17,7 @@ set(libtelnet_sources
 )
 
 set(DYLIB_INSTALL_NAME "/usr/lib/libtelnet.dylib")
-add_darling_library(telnet SHARED ${libtelnet_sources})
+add_darling_library(telnet ${libtelnet_sources})
 target_link_libraries(telnet system)
 
 install(TARGETS telnet DESTINATION libexec/darling/usr/lib)
