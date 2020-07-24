@@ -2,23 +2,28 @@ project(libtelnet)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdinc")
 
-include_directories(${CMAKE_SOURCE_DIR}/src/external/openssl/src/include)
+add_compile_definitions(
+	__FBSDID=__RCSID
+	HAS_CGETENT
+	AUTHENTICATION
+	RSA
+	KRB5
+	FORWARD
+	HAVE_STDLIB_H
+)
 
-set(libtelnet_sources
+add_darling_static_library(telnet FAT SOURCES
 	auth.c
 	enc_des.c
 	encrypt.c
 	forward.c
 	genget.c
 	getent.c
+	kerberos.c
+	kerberos5.c
+	krb4encpwd.c
 	misc.c
 	read_password.c
 	rsaencpwd.c
+	sra.c
 )
-
-set(DYLIB_INSTALL_NAME "/usr/lib/libtelnet.dylib")
-add_darling_library(telnet ${libtelnet_sources})
-target_link_libraries(telnet system)
-
-install(TARGETS telnet DESTINATION libexec/darling/usr/lib)
-
